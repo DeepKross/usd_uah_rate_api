@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
-import healthcheckRoute from './healthcheck.routes';
+import healthcheckRoutes from './healthcheck.routes';
+import rateRoutes from './rate.routes';
 
 const router = Router();
 
-router.use('/', healthcheckRoute);
+router.use('/', healthcheckRoutes);
+router.use('/rate', rateRoutes);
 
 export default router;
