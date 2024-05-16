@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
+import { getHealthcheckMsg} from '../services/healthcheck.services';
 
-export const healthcheck = (_: Request, res: Response) => {
-  res.send('Server is up and running!');
+export const healthcheckController = (_: Request, res: Response) => {
+  const response = getHealthcheckMsg();
+  res.send(response);
 };

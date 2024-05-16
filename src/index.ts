@@ -1,6 +1,6 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
-import express, { Express, json, Request, Response, urlencoded } from 'express';
+import express, { Express, json, urlencoded } from 'express';
 import favicon from 'serve-favicon';
 
 import router from './routes/v1/index';
@@ -10,7 +10,7 @@ const app: Express = express();
 
 dotenv.config();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 //const clientUrl = process.env.CLIENT_URL;
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -29,14 +29,8 @@ app.options('*', cors());
 
 app.use(json());
 
-//Basic healthcheck
-app.get('/', (_: Request, res: Response) => {
-  console.log('GET /');
-  res.send('Express + TypeScript Server');
-});
-
 //all routes are prefixed with /v1
-app.use('/', router);
+app.use(router);
 
 //connect to the database and start the server
 void prisma.$connect().then(() => {
