@@ -5,6 +5,7 @@ import { Server } from 'http';
 import favicon from 'serve-favicon';
 
 import logger from './config/logger';
+import { errorMiddleware } from './middlewares/error.middleware';
 import prisma from './prismaClient';
 import router from './routes';
 
@@ -33,6 +34,8 @@ app.use(json());
 
 //all routes are prefixed with /v1
 app.use(router);
+
+app.use(errorMiddleware);
 
 let server: Server;
 
