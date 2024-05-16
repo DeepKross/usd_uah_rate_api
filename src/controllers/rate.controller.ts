@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { RateRequest } from '../models/rate.types';
-import { getCurrentRate } from '../services/rate.services';
+import RateService from '../services/rate.service';
 import catchAsync from '../utils/catchAsync';
 
 export const rateController = catchAsync(async (req: Request, res: Response) => {
@@ -12,7 +12,7 @@ export const rateController = catchAsync(async (req: Request, res: Response) => 
     to: (to as string) || 'UAH'
   };
 
-  const rates = await getCurrentRate(rateRequest);
+  const rates = await RateService.getCurrentRate(rateRequest);
 
   res.status(200).send(rates);
 });

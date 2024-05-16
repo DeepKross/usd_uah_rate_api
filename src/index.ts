@@ -4,12 +4,19 @@ import express, { Express, json, urlencoded } from 'express';
 import { Server } from 'http';
 import favicon from 'serve-favicon';
 
+import config from './config/config';
 import logger from './config/logger';
+import { errorHandler, successHandler } from './config/morgan';
 import { errorMiddleware } from './middlewares/error.middleware';
 import prisma from './prismaClient';
 import router from './routes';
 
 const app: Express = express();
+
+if (config.env !== 'test') {
+  app.use(successHandler);
+  app.use(errorHandler);
+}
 
 dotenv.config();
 

@@ -4,7 +4,7 @@ import config from '../config/config';
 import logger from '../config/logger';
 import { Rate, RateRequest } from '../models/rate.types';
 
-export const fetchRate = async ({ from, to }: RateRequest) => {
+const fetchRate = async ({ from, to }: RateRequest) => {
   const response: Response = await fetch(
     `https://api.currencybeacon.com/v1/latest?api_key=${config.exchangeRateApiUrl}&base=${from}&symbols=${to}`,
     {
@@ -22,7 +22,7 @@ export const fetchRate = async ({ from, to }: RateRequest) => {
   };
 };
 
-export const getCurrentRate = async ({ from, to }: RateRequest) => {
+const getCurrentRate = async ({ from, to }: RateRequest) => {
   logger.info(`Getting rate from ${from} to ${to}`);
 
   const response: Rate = await fetchRate({ from, to });
@@ -30,4 +30,8 @@ export const getCurrentRate = async ({ from, to }: RateRequest) => {
   logger.info(`Got rate from ${from} to ${to}`);
 
   return response.rates;
+};
+
+export default {
+  getCurrentRate
 };
