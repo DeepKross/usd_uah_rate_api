@@ -10,12 +10,11 @@ const validate = (schema: object) => (req: Request, res: Response, next: NextFun
   const validSchema = pick(schema, ['params', 'query', 'body']);
   const obj = pick(req, Object.keys(validSchema));
   const { value, error } = Joi.compile(validSchema)
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     .prefs({ errors: { label: 'key' }, abortEarly: false })
     .validate(obj);
 
   if (error) {
-    const errorMessage = error.details.map((detail) => detail.message as string).join(', ');
+    const errorMessage = error.details.map((detail) => detail.message).join(', ');
 
     return next(new ApiError(httpStatus.BAD_REQUEST, errorMessage));
   }
