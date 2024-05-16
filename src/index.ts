@@ -5,8 +5,8 @@ import { Server } from 'http';
 import favicon from 'serve-favicon';
 
 import logger from './config/logger';
-import router from './routes/v1/index';
 import prisma from './prismaClient';
+import router from './routes';
 
 const app: Express = express();
 
