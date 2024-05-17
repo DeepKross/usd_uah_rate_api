@@ -7,6 +7,7 @@
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
+    "dev:mailer": "nodemon src/subscriptionNotifier/subscriptionNotifier.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,6 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.11.0",
+    "@types/node-cron": "^3.0.11",
+    "@types/nodemailer": "^6.4.15",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -21,7 +24,9 @@
     "http-status": "^1.7.4",
     "joi": "^17.13.1",
     "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
     "node-fetch": "^2.7.0",
+    "nodemailer": "^6.9.13",
     "serve-favicon": "^2.5.0",
     "winston": "^3.13.0"
   },
