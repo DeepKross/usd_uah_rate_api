@@ -14,6 +14,10 @@ type EnvVars = {
   NODE_ENV: 'production' | 'development' | 'test';
   PORT: number;
   EXCHANGE_RATE_API_URL: string;
+  SMTP_HOST: string;
+  SMTP_PORT: number;
+  SMTP_USER: string;
+  SMTP_PASSWORD: string;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -32,12 +36,20 @@ interface Config {
   env: 'production' | 'development' | 'test';
   port: number;
   exchangeRateApiUrl: string;
+  SMTP_HOST: string;
+  SMTP_PORT: number;
+  SMTP_USER: string;
+  SMTP_PASSWORD: string;
 }
 
 const config: Config = {
   env: validatedEnvVars.NODE_ENV,
   port: validatedEnvVars.PORT,
-  exchangeRateApiUrl: validatedEnvVars.EXCHANGE_RATE_API_URL
+  exchangeRateApiUrl: validatedEnvVars.EXCHANGE_RATE_API_URL,
+  SMTP_HOST: validatedEnvVars.SMTP_HOST,
+  SMTP_PORT: validatedEnvVars.SMTP_PORT,
+  SMTP_USER: validatedEnvVars.SMTP_USER,
+  SMTP_PASSWORD: validatedEnvVars.SMTP_PASSWORD
 };
 
 export default config;

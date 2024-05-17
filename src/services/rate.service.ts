@@ -2,7 +2,8 @@ import fetch, { Response } from 'node-fetch';
 
 import config from '../config/config';
 import logger from '../config/logger';
-import { Rate, RateRequest } from '../models/rate.types';
+import { Rate, RateData, RateRequest } from '../models/rate.types';
+import APIError from '../utils/APIError';
 
 const fetchRate = async ({ from, to }: RateRequest) => {
   const response: Response = await fetch(
@@ -15,21 +16,23 @@ const fetchRate = async ({ from, to }: RateRequest) => {
     }
   );
 
-  const responseData: Rate = (await response.json()) as Rate;
+  const responseData: RateData = (await response.json()) as RateData;
 
-  return {
-    ...responseData
-  };
+  if (responseData.meta.code !== 200) {
+    throw new APIError(responseData.meta.code, 'Error getting rate from API');
+  }
+
+  return responseData.response.rates;
 };
 
-const getCurrentRate = async ({ from, to }: RateRequest) => {
+const getCurrentRate = async (from = 'USD', to = 'UAH') => {
   logger.info(`Getting rate from ${from} to ${to}`);
 
   const response: Rate = await fetchRate({ from, to });
 
   logger.info(`Got rate from ${from} to ${to}`);
 
-  return response.rates;
+  return response;
 };
 
 export default {
