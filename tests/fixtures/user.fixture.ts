@@ -1,6 +1,4 @@
-import { User } from '@prisma/client';
-
-export const userFixture: User = {
+export const userFixture = {
   isSubscribed: true,
   id: '1',
   email: 'example@gmail.com',
