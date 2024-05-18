@@ -3,6 +3,9 @@
 ## Introduction
 This project is a TypeScript-based web application designed for managing subscription services for emails and USD/UAH exchange rate receiving. The application includes robust error handling, middleware validation, and a comprehensive test suite to ensure reliability and maintainability.
 
+### Clean Architecture Overview
+My project follows the principles of Clean Architecture to ensure a scalable, maintainable, and testable codebase. The core idea is to separate different layers of the application, ensuring that each layer has a clear responsibility. This separation helps in managing the complexity of the application and facilitates easier testing and maintenance.
+
 ## Features
 - **Subscription Management**: Handle subscription processes.
 - **Exhange rate**: Get current USD/UAH exchange rate or any other currencies.
@@ -54,8 +57,8 @@ This project is a TypeScript-based web application designed for managing subscri
 
 ## Usage
 - **Health Check**: Access the health check endpoint at `/`.
-- **Subscription Management**: Use the endpoints under `/subscribe` to manage subscriptions.
-- **Rate Limiting**: Interact with the rate-limited endpoints under `/rate`.
+- **Subscription Management**: Use the endpoints under `/subscribe` to manage subscriptions. Subscribed users receive emails. There is validation support, users can subscribe only once. `POST` request.
+- **Exhange rate**: Interact with the exhange rate for USD/UAH `/rate`. You can also get any other currenct exhange rate by providing `from` and `to` via query params. `GET` request.
 
 ## Project Structure
 - **prisma**: Prisma schema and migration files.
@@ -75,6 +78,30 @@ This project is a TypeScript-based web application designed for managing subscri
 - **compose.yaml**: Docker Compose configuration.
 - **Dockerfile**: Docker build configuration.
 - **jest.config.ts**: Jest configuration.
+
+## Key feature and explanation
+
+### Error handling
+- Custom API error handling function was created that extended basic API with custom status and msg handling.
+- **Catch Async** function was created so that we do not have to cover our controllers in `try - catch`. It helps to catch any error in the async function and send the corresponding error.
+
+### Validation of requests
+- `validate` and `pick` functions were created so we could using `Joi` schema define the rules to check the request params. That schemas can be covered with `validate` function and passed as middleware.
+
+### DB
+- We are using `PostgreSQL` with **Prisma ORM** as this ORM helps a lot by defining the right schema to DB, handling a lot of troubles with SQL with its build-in functionality.
+
+### Mailer
+- We are using `cron job` to handle every day msg receiving. I have left the comment on how to change cron to send msgs every day but left it to do it every minute for test purposes.
+- **Important**. I have decided that it is better to run that cron as a separated process as a little microservice. We do not want our app to crush when the cron is crushed or the opposite. I hope you find this approach beneficial. 
+
+### Docker
+- run `docker compose up --build`. It will create everything needed to run the app. `Supervisord` will run 2 processes for the main app and cron job.
+
+### Tests
+- Covered all controllers using `jest` and `http-mocks` with unit tests. Pls run `test:unit`
+- Convered all services
+- Covered cron job with tests
 
 ## Contact
 For any inquiries or feedback, please contact [volkermischa@gmail.com](mailto:volkermischa@gmail.com).
