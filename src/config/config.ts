@@ -18,6 +18,7 @@ type EnvVars = {
   SMTP_PORT: number;
   SMTP_USER: string;
   SMTP_PASSWORD: string;
+  SMTP_USER_NAME: string;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -40,6 +41,7 @@ interface Config {
   SMTP_PORT: number;
   SMTP_USER: string;
   SMTP_PASSWORD: string;
+  SMTP_USER_NAME: string;
 }
 
 const config: Config = {
@@ -49,7 +51,8 @@ const config: Config = {
   SMTP_HOST: validatedEnvVars.SMTP_HOST,
   SMTP_PORT: validatedEnvVars.SMTP_PORT,
   SMTP_USER: validatedEnvVars.SMTP_USER,
-  SMTP_PASSWORD: validatedEnvVars.SMTP_PASSWORD
+  SMTP_PASSWORD: validatedEnvVars.SMTP_PASSWORD,
+  SMTP_USER_NAME: validatedEnvVars.SMTP_USER_NAME
 };
 
 export default config;
