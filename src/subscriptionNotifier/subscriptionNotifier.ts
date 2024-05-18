@@ -14,7 +14,7 @@ void prisma.$connect().then(() => {
 });
 
 //0 0 * * * - once per day
-cron.schedule('0 0 * * *', async () => {
+cron.schedule('* * * * *', async () => {
   try {
     const usersSubscribed = await usersService.getAllSubscribers();
 
