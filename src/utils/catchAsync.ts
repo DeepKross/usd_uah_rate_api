@@ -1,11 +1,12 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
+import { ParsedQs } from 'qs';
 
 const catchAsync = <
   P = Record<string, never>,
-  ResBody = never,
-  ReqBody = never,
-  ReqQuery = qs.ParsedQs,
-  Locals extends Record<string, never> = Record<string, never>
+  ResBody = any,
+  ReqBody = any,
+  ReqQuery = ParsedQs,
+  Locals extends Record<string, any> = Record<string, any>
 >(
   fn: RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
 ): RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> => {
